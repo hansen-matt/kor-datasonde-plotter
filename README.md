@@ -1,0 +1,1 @@
+This tool reads data exported from a YSI EXO Datasonde and makes plots of depth, temperature, pH, conductivity and dissolved oxygen. The easiest way to use it is from MyBinder: https://mybinder.org/v2/gh/hansen-matt/kor-datasonde-plotter/HEAD?urlpath=%2Fdoc%2Ftree%2FYSI_Datasonde_Plotter.ipynb
