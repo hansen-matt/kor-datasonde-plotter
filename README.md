@@ -22,8 +22,8 @@ Click the **Launch app** badge above. The app opens automatically with the uploa
 
 1. Export your data from KOR Software as a CSV file.
 2. Click the **Launch app** badge and wait for the environment to load (~1 minute).
-3. Click **Upload CSV(s)** and select one or more KOR export files. Multiple files are processed separately.
-4. Click **Plot dives**. A figure is generated for every dive detected in each file.
+3. Click **Upload CSV(s)** and select one or more KOR export files.
+4. Click **Plot dives**.
 
 To adjust detection settings or view the code, use the [notebook interface](https://mybinder.org/v2/gh/hansen-matt/kor-datasonde-plotter/HEAD?urlpath=%2Fdoc%2Ftree%2FYSI_Datasonde_Plotter.ipynb) instead.
 
