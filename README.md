@@ -1,6 +1,6 @@
 # YSI Datasonde Data Plotter
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hansen-matt/kor-datasonde-plotter/HEAD?urlpath=%2Fdoc%2Ftree%2FYSI_Datasonde_Plotter.ipynb)
+[![Launch app](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hansen-matt/kor-datasonde-plotter/HEAD?urlpath=voila%2Frender%2FYSI_Datasonde_Plotter.ipynb)
 
 A Jupyter notebook that reads CSV exports from [KOR Software](https://www.ysi.com/kor) (YSI EXO datasonde) and produces time-series plots for each detected dive. Each dive gets its own figure with five panels:
 
@@ -12,15 +12,16 @@ A Jupyter notebook that reads CSV exports from [KOR Software](https://www.ysi.co
 
 ## Quickstart — no installation needed
 
-Click the **launch binder** badge above. Once the environment loads, run all cells (**Run → Run All Cells**), upload your KOR CSV export, and click **Plot dives**.
+Click the **Launch app** badge above. The app opens automatically with the upload button ready — no code to run.
 
 ## How to use
 
 1. Export your data from KOR Software as a CSV file.
-2. Open the notebook (via Binder or locally — see below).
-3. **Run → Run All Cells** — the upload widget will appear.
-4. Click **Upload CSV(s)** and select one or more KOR export files. Multiple files are processed separately.
-5. Click **Plot dives**. A figure is generated for every dive detected in each file.
+2. Click the **Launch app** badge and wait for the environment to load (~1 minute).
+3. Click **Upload CSV(s)** and select one or more KOR export files. Multiple files are processed separately.
+4. Click **Plot dives**. A figure is generated for every dive detected in each file.
+
+To adjust detection settings or view the code, use the [notebook interface](https://mybinder.org/v2/gh/hansen-matt/kor-datasonde-plotter/HEAD?urlpath=%2Fdoc%2Ftree%2FYSI_Datasonde_Plotter.ipynb) instead.
 
 ## Features
 
@@ -41,7 +42,7 @@ In the configuration cell (just below the upload widget) you can tune:
 | `PAD_MIN` | 10 min | Surface data to include before and after each dive |
 | `MIN_MAX_DEPTH_FT` | 5 ft | Ignore excursions shallower than this (e.g. surface checks) |
 
-After changing any setting, click **Run → Run All Cells** to replot.
+After changing any setting, click **Run → Run All Cells** to replot. (Settings are only exposed in the notebook interface, not the app.)
 
 ## Running locally
 
