@@ -12,13 +12,13 @@ A Jupyter notebook that reads CSV exports from [KOR Software](https://www.ysi.co
 
 ## Quickstart — no installation needed
 
-Click the **launch binder** badge above. Once the environment loads, run all cells (**Cell → Run All**), upload your KOR CSV export, and click **Plot dives**.
+Click the **launch binder** badge above. Once the environment loads, run all cells (**Run → Run All Cells**), upload your KOR CSV export, and click **Plot dives**.
 
 ## How to use
 
 1. Export your data from KOR Software as a CSV file.
 2. Open the notebook (via Binder or locally — see below).
-3. **Cell → Run All** — the upload widget will appear.
+3. **Run → Run All Cells** — the upload widget will appear.
 4. Click **Upload CSV(s)** and select one or more KOR export files. Multiple files are processed separately.
 5. Click **Plot dives**. A figure is generated for every dive detected in each file.
 
@@ -41,7 +41,7 @@ In the configuration cell (just below the upload widget) you can tune:
 | `PAD_MIN` | 10 min | Surface data to include before and after each dive |
 | `MIN_MAX_DEPTH_FT` | 5 ft | Ignore excursions shallower than this (e.g. surface checks) |
 
-After changing any setting, click **Cell → Run All** to replot.
+After changing any setting, click **Run → Run All Cells** to replot.
 
 ## Running locally
 
