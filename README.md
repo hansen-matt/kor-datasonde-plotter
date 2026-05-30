@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://mybinder.org/v2/gh/hansen-matt/kor-datasonde-plotter/HEAD?urlpath=voila%2Frender%2FYSI_Datasonde_Plotter.ipynb">
-    <img src="https://mybinder.org/badge_logo.svg" alt="Launch app" height="80">
+    <img src="https://mybinder.org/badge_logo.svg" alt="Launch app" width="400">
   </a>
 </p>
 
