@@ -1,6 +1,10 @@
 # YSI Datasonde Data Plotter
 
-[![Launch app](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hansen-matt/kor-datasonde-plotter/HEAD?urlpath=voila%2Frender%2FYSI_Datasonde_Plotter.ipynb)
+<p align="center">
+  <a href="https://mybinder.org/v2/gh/hansen-matt/kor-datasonde-plotter/HEAD?urlpath=voila%2Frender%2FYSI_Datasonde_Plotter.ipynb">
+    <img src="https://mybinder.org/badge_logo.svg" alt="Launch app" height="80">
+  </a>
+</p>
 
 A Jupyter notebook that reads CSV exports from [KOR Software](https://www.ysi.com/kor) (YSI EXO datasonde) and produces time-series plots for each detected dive. Each dive gets its own figure with five panels:
 
