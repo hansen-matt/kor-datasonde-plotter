@@ -55,6 +55,17 @@ pip install -r requirements.txt
 jupyter notebook YSI_Datasonde_Plotter.ipynb
 ```
 
+## Testing
+
+`smoke_test.py` loads every CSV in `test_data/` through the notebook's own
+loader (and renders each dive if matplotlib is installed), guarding against
+Kor export format variations — encoding, column order, depth units, date
+format — silently breaking the plotter. It exits non-zero if any file fails:
+
+```bash
+python smoke_test.py
+```
+
 ## Requirements
 
 - Python 3.8+
