@@ -28,12 +28,15 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 NOTEBOOK = os.path.join(HERE, 'YSI_Datasonde_Plotter.ipynb')
 TEST_DIR = os.path.join(HERE, 'test_data')
 
-# Names we need out of the notebook's code cells.
-SETTINGS = ('DIVE_THRESHOLD_FT', 'MERGE_GAP_MIN', 'PAD_MIN',
-            'MIN_MAX_DEPTH_FT', 'FIG_SIZE', 'COLORS')
-PLOT_HELPERS = ('_floor', '_ceil', 'depth_limits', 'do_limits', 'temp_limits',
-                'ph_limits', 'spcond_limits', 'apply_limits', 'format_xaxis',
-                'add_dive_time_axis', 'stats_box', 'plot_dive')
+# Names we need out of the notebook's settings cell — everything else there
+# builds upload widgets, which cannot be constructed headless.
+SETTINGS = ('DIVE_THRESHOLD_FT', 'MERGE_GAP_MIN', 'PAD_MIN', 'MIN_MAX_DEPTH_FT',
+            'MIN_DIVE_DEPTH_FT', 'MIN_DURATION_MIN', 'SCALE_MIN_DEPTH_FT', 'FIG_SIZE', 'COLORS',
+            'FIXED_DO_MGL', 'FIXED_TEMP_C', 'FIXED_SPCOND', 'FIXED_PH',
+            'SITE_OVERRIDES')
+# Likewise for the loader cell, whose tail wires up the 'Plot dives' button.
+LOADER = ('load_kor_csv', 'find_dives', 'format_duration', 'site_from_source', '_clean_site', 'dive_filename', '_norm_col', '_kor_header',
+          'KOR_COL_MAP', 'KOR_DT_FORMATS')
 
 
 def load_notebook_namespace():
@@ -52,10 +55,11 @@ def load_notebook_namespace():
         'HTML': lambda *a, **k: None,
     }
     import io as _io
+    import re as _re
     import base64 as _base64
     import zipfile as _zipfile
     import numpy as _np
-    ns.update(io=_io, base64=_base64, zipfile=_zipfile, np=_np)
+    ns.update(io=_io, re=_re, base64=_base64, zipfile=_zipfile, np=_np)
 
     # matplotlib is optional — without it we still load + detect dives, just skip
     # rendering. With it, we render headlessly to also exercise plot_dive.
@@ -72,23 +76,25 @@ def load_notebook_namespace():
     except ImportError:
         pass
 
-    # Settings constants (skip the widget lines in that cell).
-    settings_src = next(c for c in cells if 'DIVE_THRESHOLD_FT' in c)
-    for line in settings_src.splitlines():
-        stripped = line.lstrip()
-        if any(stripped.startswith(name) for name in SETTINGS):
-            exec(line, ns)
-
-    def exec_funcs(src, names):
-        mod = ast.parse(src)
-        keep = [n for n in mod.body
-                if isinstance(n, ast.FunctionDef) and n.name in names]
+    def exec_names(src, names):
+        """Exec only the top-level definitions and assignments named in `names`,
+        leaving the widget wiring in the same cell alone. Parsed rather than
+        matched line by line so multi-line values come through intact."""
+        keep = []
+        for n in ast.parse(src).body:
+            if isinstance(n, ast.FunctionDef) and n.name in names:
+                keep.append(n)
+            elif isinstance(n, ast.Assign) and any(
+                    isinstance(t, ast.Name) and t.id in names for t in n.targets):
+                keep.append(n)
         exec(compile(ast.Module(body=keep, type_ignores=[]), '<nb>', 'exec'), ns)
 
-    exec_funcs(next(c for c in cells if 'def load_kor_csv' in c),
-               {'load_kor_csv', 'find_dives'})
+    exec_names(next(c for c in cells if 'DIVE_THRESHOLD_FT' in c), set(SETTINGS))
+    exec_names(next(c for c in cells if 'def load_kor_csv' in c), set(LOADER))
+    # The plotting cell is self-contained, so run all of it — that way the test
+    # exercises the real style setup, not just the functions.
     if have_mpl:
-        exec_funcs(next(c for c in cells if 'def plot_dive' in c), set(PLOT_HELPERS))
+        exec(next(c for c in cells if 'def plot_dive' in c), ns)
 
     return ns, have_mpl
 
