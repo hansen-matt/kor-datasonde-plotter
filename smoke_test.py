@@ -52,10 +52,11 @@ def load_notebook_namespace():
         'HTML': lambda *a, **k: None,
     }
     import io as _io
+    import re as _re
     import base64 as _base64
     import zipfile as _zipfile
     import numpy as _np
-    ns.update(io=_io, base64=_base64, zipfile=_zipfile, np=_np)
+    ns.update(io=_io, re=_re, base64=_base64, zipfile=_zipfile, np=_np)
 
     # matplotlib is optional — without it we still load + detect dives, just skip
     # rendering. With it, we render headlessly to also exercise plot_dive.
@@ -80,13 +81,20 @@ def load_notebook_namespace():
             exec(line, ns)
 
     def exec_funcs(src, names):
+        """Exec the named top-level functions and constant assignments from a cell."""
         mod = ast.parse(src)
-        keep = [n for n in mod.body
-                if isinstance(n, ast.FunctionDef) and n.name in names]
+        keep = []
+        for n in mod.body:
+            if isinstance(n, ast.FunctionDef) and n.name in names:
+                keep.append(n)
+            elif isinstance(n, ast.Assign) and any(
+                    isinstance(t, ast.Name) and t.id in names for t in n.targets):
+                keep.append(n)
         exec(compile(ast.Module(body=keep, type_ignores=[]), '<nb>', 'exec'), ns)
 
     exec_funcs(next(c for c in cells if 'def load_kor_csv' in c),
-               {'load_kor_csv', 'find_dives'})
+               {'load_kor_csv', 'find_dives', '_norm_col', '_kor_header',
+                'KOR_COL_MAP', 'KOR_DT_FORMATS'})
     if have_mpl:
         exec_funcs(next(c for c in cells if 'def plot_dive' in c), set(PLOT_HELPERS))
 
