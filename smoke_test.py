@@ -32,9 +32,10 @@ TEST_DIR = os.path.join(HERE, 'test_data')
 # builds upload widgets, which cannot be constructed headless.
 SETTINGS = ('DIVE_THRESHOLD_FT', 'MERGE_GAP_MIN', 'PAD_MIN', 'MIN_MAX_DEPTH_FT',
             'MIN_DIVE_DEPTH_FT', 'MIN_DURATION_MIN', 'SCALE_MIN_DEPTH_FT', 'FIG_SIZE', 'COLORS',
-            'FIXED_DO_MGL', 'FIXED_TEMP_C', 'FIXED_SPCOND', 'FIXED_PH')
+            'FIXED_DO_MGL', 'FIXED_TEMP_C', 'FIXED_SPCOND', 'FIXED_PH',
+            'SITE_OVERRIDES')
 # Likewise for the loader cell, whose tail wires up the 'Plot dives' button.
-LOADER = ('load_kor_csv', 'find_dives', 'format_duration', 'site_from_source', '_clean_site', '_norm_col', '_kor_header',
+LOADER = ('load_kor_csv', 'find_dives', 'format_duration', 'site_from_source', '_clean_site', 'dive_filename', '_norm_col', '_kor_header',
           'KOR_COL_MAP', 'KOR_DT_FORMATS')
 
 
