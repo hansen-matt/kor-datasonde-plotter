@@ -30,9 +30,11 @@ TEST_DIR = os.path.join(HERE, 'test_data')
 
 # Names we need out of the notebook's code cells.
 SETTINGS = ('DIVE_THRESHOLD_FT', 'MERGE_GAP_MIN', 'PAD_MIN',
-            'MIN_MAX_DEPTH_FT', 'FIG_SIZE', 'COLORS')
-PLOT_HELPERS = ('_floor', '_ceil', 'depth_limits', 'do_limits', 'temp_limits',
-                'ph_limits', 'spcond_limits', 'apply_limits', 'format_xaxis',
+            'MIN_MAX_DEPTH_FT', 'FIG_SIZE', 'COLORS', 'FIXED_DO_MGL',
+            'FIXED_TEMP_C', 'FIXED_SPCOND', 'FIXED_PH')
+PLOT_HELPERS = ('_floor', '_ceil', '_nice_step', 'depth_limits', 'do_limits', 'temp_limits',
+                'ph_limits', 'spcond_limits', 'shared_or_auto', 'note_independent',
+                'apply_limits', 'format_xaxis',
                 'add_dive_time_axis', 'stats_box', 'plot_dive')
 
 
